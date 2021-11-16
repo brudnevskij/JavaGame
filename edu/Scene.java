@@ -9,54 +9,87 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Scene extends JPanel implements ActionListener {
-    private ArrayList<Entity> guys;
 
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+
     private Player player;
     private Timer timer;
-
-    Scene(){
+    private Fish fish;
+    private Dog warden1;
+    Scene() {
         System.out.println("Scene");
         addKeyListener(new TAdapter());
-        guys = new ArrayList<Entity>();
-        timer = new Timer(50, this);
+        setFocusable(true);
+        fish = new Fish();
+        warden1 = new Dog(20,20);
+        timer = new Timer(10, this);
         timer.start();
+
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        guys.forEach(guy -> guy.draw(g, this));
+        if (player.intersects(fish)) {
+            fish.changePos();
+            player.ateFish();
+        }
+        if(player.intersects(warden1)){
+            this.player = new Player(250,250);
+        }
         player.draw(g, this);
+        fish.draw(g, this);
+        warden1.draw(g, this);
+        Toolkit.getDefaultToolkit().sync();
     }
 
+    public void step() {
+        player.move();
+        warden1.autoguard();
+        repaint();
+        System.out.println(Math.random());
+    }
 
-    public void addEntity(Entity e){
-        guys.add(e);
+    public void destr() {
+//        this.setVisible(false);
+        timer.stop();
+    }
+    public void undestr() {
+//        this.setVisible(false);
+        timer.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        repaint();
+        step();
     }
+
     private class TAdapter extends KeyAdapter {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("test");
             player.keyReleased(e);
+            int key = e.getKeyCode();
+
+            if(key == KeyEvent.VK_SPACE){
+                undestr();
+            }
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
             player.keyPressed(e);
+            int key = e.getKeyCode();
+
+            if(key == KeyEvent.VK_SPACE){
+                destr();
+            }
         }
     }
-
 
 
 }

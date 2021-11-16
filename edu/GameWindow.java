@@ -9,9 +9,10 @@ public class GameWindow extends JFrame {
     GameWindow(Scene lvl){
         System.out.println("Gamewindow");
         add(lvl);
-        setSize(400,200);
+        setSize(500,500);
         setVisible(true);
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
