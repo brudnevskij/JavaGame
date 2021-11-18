@@ -25,7 +25,7 @@ public class Dog extends Entity {
         this.y = y;
         this.dx = 0;
         this.dy = 0;
-        this.vertSpeed = 5;
+        this.vertSpeed = 1;
         this.width = 70;
         this.height = 70;
         this.shooting = false;

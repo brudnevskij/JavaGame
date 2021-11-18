@@ -9,9 +9,24 @@ public class Player extends Entity {
     private int score;
     private Image defaultImage;
     private Image actionImage;
+    private Image mintImage;
     private int dx;
     private int dy;
     private int counter;
+    private String defaultPath;
+    private String fishPath;
+    private String mintPath;
+    private String alienPath;
+
+    public boolean isAteMint() {
+        return ateMint;
+    }
+
+    public void setAteMint(boolean ateMint) {
+        this.ateMint = ateMint;
+    }
+
+    private boolean ateMint;
 
     public int getScore() {
         return score;
@@ -49,8 +64,10 @@ public class Player extends Entity {
         this.score = 0;
         this.counter = 100;
         this.speed = 4;
+        ateMint = false;
         loadImage();
         loadImage("src/edu/evilcat.png");
+        loadMintImage("src/edu/assets/mintCat.png");
     }
 
     public void loadImage() {
@@ -61,6 +78,10 @@ public class Player extends Entity {
     public void loadImage(String path) {
         ImageIcon i = new ImageIcon(path);
         this.actionImage = i.getImage();
+    }
+    public void loadMintImage(String path) {
+        ImageIcon i = new ImageIcon(path);
+        this.mintImage = i.getImage();
     }
 
     public void destroyCounter() {
@@ -73,7 +94,9 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics g, Scene observer) {
-        if (this.counter <= 50) {
+        if(ateMint){
+            g.drawImage(mintImage, x, y, width, height, observer);
+        }else if(this.counter <= 50) {
             g.drawImage(actionImage, x, y, width, height, observer);
             this.counter++;
             speed = 6;

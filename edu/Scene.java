@@ -23,6 +23,8 @@ public class Scene extends JPanel implements ActionListener {
     private MenuPannel menuPannel;
     private boolean menu;
     private GameWindow parent;
+    private int mintCounter;
+    private Mint mint;
 
     public boolean isMenu() {
         return menu;
@@ -46,6 +48,7 @@ public class Scene extends JPanel implements ActionListener {
         player = new Player(240, 250);
         fish = new Fish();
         warden1 = new Dog(20, 20);
+        mint = new Mint();
         timer = new Timer(10, this);
         parent = window;
         menuPannel = new MenuPannel(this);
@@ -73,11 +76,14 @@ public class Scene extends JPanel implements ActionListener {
             if (player.intersects(warden1)) {
                 this.player = new Player(250, 250);
                 switchMenu();
-
+            }
+            if(player.intersects(mint)){
+                mintAbsorbed();
             }
             player.draw(g, this);
             fish.draw(g, this);
             warden1.draw(g, this);
+            mint.draw(g,this);
             Toolkit.getDefaultToolkit().sync();
         }
         else {
@@ -91,24 +97,29 @@ public class Scene extends JPanel implements ActionListener {
     public void step() {
         player.move();
         warden1.autoguard();
+        if(mintCounter == 400) {
+            warden1.setVertSpeed(5);
+            player.setAteMint(false);
+        }
+        if(mintCounter==1000) {
+            mint.spawn();
+            mintCounter = 0;
+        }
+        mintCounter++;
         repaint();
     }
 
-    public void pause() {
-        setVisible(false);
-        setFocusable(false);
-        timer.stop();
-    }
 
-    public void unPause() {
-        setVisible(true);
-        setFocusable(true);
-        timer.start();
-        System.out.println("afsaf");
-
-    }
     public void closeWindow(){
         parent.dispose();
+        System.exit(0);
+    }
+
+    public void mintAbsorbed(){
+        warden1.setVertSpeed(2);
+        mint.vanish();
+        player.setAteMint(true);
+        mintCounter =0;
     }
 
     @Override
