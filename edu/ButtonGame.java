@@ -3,7 +3,7 @@ package edu;
 import javax.swing.*;
 import java.awt.*;
 
-public class ButtonGame {
+public abstract class  ButtonGame {
     private int x;
     private int y;
     private int width;
@@ -34,9 +34,10 @@ public class ButtonGame {
         ImageIcon i = new ImageIcon(path);
         this.label = i.getImage();
     }
-    public void draw(Graphics g, Menu observer) {
+    public void draw(Graphics g, Scene observer) {
         g.drawImage(label, x, y, width, height, observer);
     }
-
+    public abstract void pick();
+    public abstract void unPick();
 
 }

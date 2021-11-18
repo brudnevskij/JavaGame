@@ -33,23 +33,33 @@ public class ButtonStart extends ButtonGame {
     }
 
     private boolean on;
+    private Scene waiter;
 
-    ButtonStart() {
+    ButtonStart(Scene waiter) {
         this.x = 150;
-        this.y = 240;
+        this.y = 220;
         this.width = 160;
         this.height = 80;
         this.on = true;
         this.name = "start";
+        this.waiter=waiter;
         loadImage("src/edu/assets/Start_BTN.png");
+        pick();
 
     }
-
+    public void pick(){
+        loadImage("src/edu/assets/Start_BTN_act.png");
+        setOn(true);
+    }
+    public void unPick(){
+        loadImage("src/edu/assets/Start_BTN.png");
+        setOn(false);
+    }
     public void loadImage(String path){
         ImageIcon i = new ImageIcon(path);
         this.label = i.getImage();
     }
-    public void draw(Graphics g, Menu observer) {
+    public void draw(Graphics g, Scene observer) {
         g.drawImage(label, x, y, width, height, observer);
     }
 
@@ -57,7 +67,12 @@ public class ButtonStart extends ButtonGame {
         if(on == true){
             int key = e.getKeyCode();
             if(key == KeyEvent.VK_ENTER){
-
+                waiter.switchMenu();
+            }
+            if(key == KeyEvent.VK_DOWN){
+                if(isOn()){
+                    on = false;
+                }
             }
         }
     }

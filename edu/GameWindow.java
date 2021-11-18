@@ -2,6 +2,7 @@ package edu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class GameWindow extends JFrame {
@@ -9,7 +10,7 @@ public class GameWindow extends JFrame {
 
 
     GameWindow(){
-        lvl = new Scene();
+        lvl = new Scene(this);
         add(lvl);
         setSize(500,500);
         setVisible(true);
@@ -17,6 +18,5 @@ public class GameWindow extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
 
 }

@@ -8,6 +8,15 @@ public class Dog extends Entity {
     private Image image;
     private int dx;
     private int dy;
+
+    public int getVertSpeed() {
+        return vertSpeed;
+    }
+
+    public void setVertSpeed(int vertSpeed) {
+        this.vertSpeed = vertSpeed;
+    }
+
     private int vertSpeed;
     private boolean shooting;
 

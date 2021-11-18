@@ -14,25 +14,46 @@ public class Scene extends JPanel implements ActionListener {
         this.player = player;
     }
 
+
     private Image bg;
     private Player player;
     private Timer timer;
     private Fish fish;
     private Dog warden1;
+    private MenuPannel menuPannel;
     private boolean menu;
-//    private GameWindow upListener;
-    Scene() {
+    private GameWindow parent;
+
+    public boolean isMenu() {
+        return menu;
+    }
+
+    public void switchMenu() {
+        if (isMenu() == true) {
+            warden1.setVertSpeed(5);
+            menu = false;
+        } else {
+            warden1.setVertSpeed(0);
+            menu = true;
+        }
+
+
+
+    }
+
+    Scene(GameWindow window) {
         addKeyListener(new TAdapter());
         player = new Player(240, 250);
         fish = new Fish();
         warden1 = new Dog(20, 20);
         timer = new Timer(10, this);
-//        upListener = window;
+        parent = window;
+        menuPannel = new MenuPannel(this);
         loadImage();
         timer.start();
         setFocusable(true);
         setVisible(true);
-        System.out.println("scene started");
+        menu = true;
     }
 
     public void loadImage() {
@@ -44,19 +65,29 @@ public class Scene extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bg, 0, 0, 500, 600, this);
-        if (player.intersects(fish)) {
-            fish.changePos();
-            player.ateFish();
-        }
-        if (player.intersects(warden1)) {
-            this.player = new Player(250, 250);
-        }
-        player.draw(g, this);
-        fish.draw(g, this);
-        warden1.draw(g, this);
-        Toolkit.getDefaultToolkit().sync();
-    }
+        if(menu == false) {
+            if (player.intersects(fish)) {
+                fish.changePos();
+                player.ateFish();
+            }
+            if (player.intersects(warden1)) {
+                this.player = new Player(250, 250);
+                switchMenu();
 
+            }
+            player.draw(g, this);
+            fish.draw(g, this);
+            warden1.draw(g, this);
+            Toolkit.getDefaultToolkit().sync();
+        }
+        else {
+            drawMenu(g);
+        }
+    }
+    public void drawMenu(Graphics g){
+        menuPannel.draw(g,this);
+
+    }
     public void step() {
         player.move();
         warden1.autoguard();
@@ -76,6 +107,9 @@ public class Scene extends JPanel implements ActionListener {
         System.out.println("afsaf");
 
     }
+    public void closeWindow(){
+        parent.dispose();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -86,12 +120,18 @@ public class Scene extends JPanel implements ActionListener {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            player.keyReleased(e);
+            if(menu == false)player.keyReleased(e);
+            else {
+                menuPannel.keyReleased(e);
+            }
+
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            player.keyPressed(e);
+            if(menu == false)player.keyPressed(e);
+            else {
+            }
 
         }
     }
