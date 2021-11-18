@@ -54,7 +54,7 @@ public class Player extends Entity {
     }
 
     public void loadImage() {
-        ImageIcon i = new ImageIcon("src/edu/cat.png");
+        ImageIcon i = new ImageIcon("src/edu/assets/cat.png");
         this.defaultImage = i.getImage();
     }
 
@@ -69,8 +69,6 @@ public class Player extends Entity {
 
     public void ateFish() {
         this.score++;
-        this.width++;
-        this.height++;
         this.counter = 0;
     }
 

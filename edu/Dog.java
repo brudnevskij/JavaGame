@@ -17,14 +17,14 @@ public class Dog extends Entity {
         this.dx = 0;
         this.dy = 0;
         this.vertSpeed = 5;
-        this.width = 50;
-        this.height = 50;
+        this.width = 70;
+        this.height = 70;
         this.shooting = false;
         loadImage();
     }
 
     public void loadImage() {
-        ImageIcon i = new ImageIcon("src/edu/dog.png");
+        ImageIcon i = new ImageIcon("src/edu/assets/dog.png");
         this.image = i.getImage();
     }
 
