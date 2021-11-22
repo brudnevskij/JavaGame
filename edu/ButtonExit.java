@@ -3,6 +3,11 @@ package edu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+/**
+Button that provides exit from the game
+
+
+ */
 
 public class ButtonExit extends ButtonGame{
     private int x;
@@ -32,36 +37,39 @@ public class ButtonExit extends ButtonGame{
     }
 
     private boolean on;
-    private Scene waiter;
 
-    ButtonExit(Scene waiter) {
+    ButtonExit() {
         this.x = 150;
         this.y = 380;
         this.width = 160;
         this.height = 80;
         this.on = true;
         this.name = "exit";
-        this.waiter=waiter;
         loadImage("src/edu/assets/Exit_BTN.png");
 
     }
 
+    /**
+     * Methode that loads  sprite from image
+     *
+     * @param path
+     */
     public void loadImage(String path){
         ImageIcon i = new ImageIcon(path);
         this.label = i.getImage();
     }
+
+    /**
+     * Methode that draws button on Scene
+     *
+     * @param g
+     * @param observer
+     */
     public void draw(Graphics g, Scene observer) {
         g.drawImage(label, x, y, width, height, observer);
     }
 
-    public void keyReleased(KeyEvent e) {
-        if(on == true){
-            int key = e.getKeyCode();
-            if(key == KeyEvent.VK_ENTER){
-                waiter.switchMenu();
-            }
-        }
-    }
+
 
     @Override
     public void pick() {
@@ -74,8 +82,5 @@ public class ButtonExit extends ButtonGame{
     public void unPick() {
         setOn(false);
         loadImage("src/edu/assets/Exit_BTN.png");
-    }
-
-    public void keyPressed(KeyEvent e) {
     }
 }

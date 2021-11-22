@@ -3,25 +3,30 @@ package edu;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class describes main way of getting points - Fish
+ */
 public class Fish extends Entity {
 
     private Image image;
 
+    /**
+     * Gets X coordinate of the fish
+     * @return
+     */
     public double getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
+    /**
+     * Gets Y coordinate of the fish
+     * @return
+     */
     public double getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
+
 
     Fish() {
         this.x = getRandomX();
@@ -36,10 +41,17 @@ public class Fish extends Entity {
         this.image = i.getImage();
     }
 
+    /**
+     * Gets you a random number for X axis
+     * @return
+     */
     public int getRandomX() {
         return (int) Math.floor(Math.random() * 451);
     }
-
+    /**
+     * Gets you a random number for Y axis
+     * @return
+     */
     public int getRandomY() {
         return (int) Math.floor(Math.random() * (416 - 50) + 50);
     }
@@ -49,6 +61,9 @@ public class Fish extends Entity {
         g.drawImage(image, x, y, 50, 50, observer);
     }
 
+    /**
+     * Changes position of the fish according to bounds
+     */
     public void changePos() {
         this.x = getRandomX();
         this.y = getRandomY();

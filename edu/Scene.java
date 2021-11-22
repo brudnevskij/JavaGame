@@ -8,11 +8,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ * Class describes the main Playground of the game
+ */
+
+
 public class Scene extends JPanel implements ActionListener {
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 
 
     private Image bg;
@@ -25,11 +27,16 @@ public class Scene extends JPanel implements ActionListener {
     private GameWindow parent;
     private int mintCounter;
     private Mint mint;
-
+    /**
+     * Checks is Menu mode is on
+     */
     public boolean isMenu() {
         return menu;
     }
 
+    /**
+     * Methode Switches between 2 modes 1- Menu. 2-game
+     */
     public void switchMenu() {
         if (isMenu() == true) {
             warden1.setVertSpeed(5);
@@ -59,11 +66,18 @@ public class Scene extends JPanel implements ActionListener {
         menu = true;
     }
 
+    /**
+     * loads a bg picture
+     */
     public void loadImage() {
         ImageIcon i = new ImageIcon("src/edu/assets/notel.png");
         this.bg = i.getImage();
     }
 
+    /**
+     * Draws all things that supposed to be on a scene
+     * @param g
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -90,10 +104,19 @@ public class Scene extends JPanel implements ActionListener {
             drawMenu(g);
         }
     }
+
+    /**
+     * Draws a menu panel
+     * @param g
+     */
     public void drawMenu(Graphics g){
         menuPannel.draw(g,this);
 
     }
+
+    /**
+     * Methode executed every time action is  performed
+     */
     public void step() {
         player.move();
         warden1.autoguard();
@@ -109,12 +132,17 @@ public class Scene extends JPanel implements ActionListener {
         repaint();
     }
 
-
+/**
+Terminates the Window and game
+ */
     public void closeWindow(){
         parent.dispose();
         System.exit(0);
     }
 
+    /**
+     * Sets conditions after players collusion with mint
+     */
     public void mintAbsorbed(){
         warden1.setVertSpeed(2);
         mint.vanish();
@@ -122,6 +150,10 @@ public class Scene extends JPanel implements ActionListener {
         mintCounter =0;
     }
 
+    /**
+     * Game Loop
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         step();

@@ -3,6 +3,13 @@ package edu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+/**
+ Button that provides scores of the game
+
+
+ */
+
+
 
 public class ButtonScores extends ButtonGame{
     private int x;
@@ -32,24 +39,33 @@ public class ButtonScores extends ButtonGame{
     }
 
     private boolean on;
-    private Scene waiter;
 
-    ButtonScores(Scene waiter) {
+    ButtonScores() {
         this.x = 150;
         this.y = 300;
         this.width = 160;
         this.height = 80;
         this.on = true;
         this.name = "scores";
-        this.waiter=waiter;
         loadImage("src/edu/assets/Exit_BTN.png");
 
     }
 
+    /**
+     * Loads sprite of an image
+     * @param path
+     */
     public void loadImage(String path){
         ImageIcon i = new ImageIcon(path);
         this.label = i.getImage();
     }
+
+    /**
+     * Draws a button on a Scene
+     * @param g
+     * @param observer
+     */
+
     public void draw(Graphics g, Scene observer) {
         g.drawImage(label, x, y, width, height, observer);
     }
@@ -66,15 +82,5 @@ public class ButtonScores extends ButtonGame{
         loadImage("src/edu/assets/Exit_BTN.png");
     }
 
-    public void keyReleased(KeyEvent e) {
-        if(on == true){
-            int key = e.getKeyCode();
-            if(key == KeyEvent.VK_ENTER){
-                waiter.switchMenu();
-            }
-        }
-    }
 
-    public void keyPressed(KeyEvent e) {
-    }
 }

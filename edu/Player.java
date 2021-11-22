@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 
+/**
+ * Class describes main entity which controlled by player
+ */
+
 public class Player extends Entity {
     private int score;
     private Image defaultImage;
@@ -13,10 +17,7 @@ public class Player extends Entity {
     private int dx;
     private int dy;
     private int counter;
-    private String defaultPath;
-    private String fishPath;
-    private String mintPath;
-    private String alienPath;
+
 
     public boolean isAteMint() {
         return ateMint;
@@ -28,13 +29,7 @@ public class Player extends Entity {
 
     private boolean ateMint;
 
-    public int getScore() {
-        return score;
-    }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
 
     public double getX() {
@@ -70,29 +65,41 @@ public class Player extends Entity {
         loadMintImage("src/edu/assets/mintCat.png");
     }
 
+    /**
+     * loads a default sprite of the cat
+     */
     public void loadImage() {
         ImageIcon i = new ImageIcon("src/edu/assets/cat.png");
         this.defaultImage = i.getImage();
     }
-
+    /**
+     * loads a active sprite of the cat
+     */
     public void loadImage(String path) {
         ImageIcon i = new ImageIcon(path);
         this.actionImage = i.getImage();
     }
+    /**
+     * loads a after mint sprite of the cat
+     */
     public void loadMintImage(String path) {
         ImageIcon i = new ImageIcon(path);
         this.mintImage = i.getImage();
     }
 
-    public void destroyCounter() {
-        this.counter = 0;
-    }
-
+    /**
+     * Methode adds a score point and terminates animation counter
+     */
     public void ateFish() {
         this.score++;
         this.counter = 0;
     }
 
+    /**
+     * Draws an entity depending on conditions of its state
+     * @param g
+     * @param observer
+     */
     public void draw(Graphics g, Scene observer) {
         if(ateMint){
             g.drawImage(mintImage, x, y, width, height, observer);
@@ -110,6 +117,10 @@ public class Player extends Entity {
     }
 
 
+    /**
+     * Describes actions that would be executed when a certain key is released
+     * @param e
+     */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
@@ -129,7 +140,10 @@ public class Player extends Entity {
             this.score++;
         }
     }
-
+    /**
+     * Describes actions that would be executed when a certain key is pressed
+     * @param e
+     */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
@@ -148,6 +162,10 @@ public class Player extends Entity {
             dy = speed;
         }
     }
+
+    /**
+     * Moves an entity depending on a conditions and keeps it inside the window
+     */
 
     public void move() {
         if(this.x >= 485 - width)if(dx > 0) dx = 0;

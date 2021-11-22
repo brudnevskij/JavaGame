@@ -4,8 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+/**
+*   This is main window that contains scene where
+*  everything is happening.
+ */
+
 
 public class GameWindow extends JFrame {
+
     private Scene lvl;
 
 

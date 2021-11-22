@@ -3,24 +3,30 @@ package edu;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class describes bonus entity Mint
+ */
+
 public class Mint extends Entity{
     private Image image;
 
+    /**
+     * gets X coordinate
+     * @return
+     */
     public double getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
+    /**
+     * gets Y coordinate
+     * @return
+     */
     public double getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
+
 
     Mint() {
         this.x = 600;
@@ -47,10 +53,18 @@ public class Mint extends Entity{
     public void draw(Graphics g, Scene observer) {
         g.drawImage(image, x, y, 50, 50, observer);
     }
+
+    /**
+     * Hides Mint away from map
+     */
     public void vanish(){
         x = 600;
         y = 600;
     }
+
+    /**
+     * Spawns a mint on the map
+     */
     public void spawn() {
         x = getRandomX();
         y = getRandomY();
