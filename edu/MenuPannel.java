@@ -13,6 +13,8 @@ public class MenuPannel {
 
     private ArrayList<ButtonGame> buttons;
     private Scene observer;
+    private Font sanSerifFont;
+
 
     MenuPannel(Scene observer) {
         this.observer = observer;
@@ -20,6 +22,7 @@ public class MenuPannel {
         buttons.add(new ButtonStart());
         buttons.add(new ButtonScores());
         buttons.add(new ButtonExit());
+        sanSerifFont = new Font("SanSerif", Font.PLAIN, 20);
 
     }
 
@@ -32,6 +35,8 @@ public class MenuPannel {
         for (ButtonGame button : buttons) {
             button.draw(g, observer);
         }
+        g.setFont(sanSerifFont);
+        g.drawString("Game have been played: " + observer.howManySessions(), 5, 15);
     }
 
     /**
@@ -55,7 +60,10 @@ public class MenuPannel {
         if (key == KeyEvent.VK_ENTER) {
             if(button.getName() == "start")observer.switchMenu();
             if(button.getName() == "scores"){}
-            if(button.getName() == "exit")observer.closeWindow();
+            if(button.getName() == "exit") {
+                observer.saveSession();
+                observer.closeWindow();
+            }
 
         }
         if (key == KeyEvent.VK_DOWN) {

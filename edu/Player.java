@@ -17,6 +17,7 @@ public class Player extends Entity {
     private int dx;
     private int dy;
     private int counter;
+    private Font sanSerifFont;
 
 
     public boolean isAteMint() {
@@ -63,6 +64,7 @@ public class Player extends Entity {
         loadImage();
         loadImage("src/edu/evilcat.png");
         loadMintImage("src/edu/assets/mintCat.png");
+        sanSerifFont = new Font("SanSerif", Font.PLAIN, 20);
     }
 
     /**
@@ -111,7 +113,6 @@ public class Player extends Entity {
             g.drawImage(defaultImage, x, y, width, height, observer);
             speed = 4;
         }
-        Font sanSerifFont = new Font("SanSerif", Font.PLAIN, 20);
         g.setFont(sanSerifFont);
         g.drawString("score: " + score, 5, 15);
     }

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +28,7 @@ public class Scene extends JPanel implements ActionListener {
     private GameWindow parent;
     private int mintCounter;
     private Mint mint;
+    private Session session;
     /**
      * Checks is Menu mode is on
      */
@@ -41,6 +43,7 @@ public class Scene extends JPanel implements ActionListener {
         if (isMenu() == true) {
             warden1.setVertSpeed(5);
             menu = false;
+            session.setTimes(session.getTimes()+1);
         } else {
             warden1.setVertSpeed(0);
             menu = true;
@@ -48,6 +51,28 @@ public class Scene extends JPanel implements ActionListener {
 
 
 
+    }
+    public void readSession(){
+        try{
+            FileInputStream fileIn = new FileInputStream("Session.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            session = (Session) in.readObject();
+            in.close();
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }catch (ClassNotFoundException cnfe){
+            cnfe.printStackTrace();
+        }
+    }
+    public void saveSession(){
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("Session.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(session);
+            objectOutputStream.close();
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
     Scene(GameWindow window) {
@@ -64,6 +89,12 @@ public class Scene extends JPanel implements ActionListener {
         setFocusable(true);
         setVisible(true);
         menu = true;
+        session = null;
+        readSession();
+    }
+
+    public int howManySessions(){
+        return session.getTimes();
     }
 
     /**
